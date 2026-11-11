@@ -3,17 +3,16 @@ import java.util.Arrays;
 public class Assignment01Q04 {
 
     public static int[] shiftArrayCyclic(int[] array, int move, char direction) {
+        if (direction != 'R' && direction != 'L') { // if the direction is not R or L, return the original array
+            return array;
+        }
         int[] c_array = array.clone(); // clone the array to avoid overwriting values during the shift
         int n = array.length;
-        if (direction == 'R') { // use the clone to shift the array to the right or left by move positions
-            for (int i = 0; i < n; i++) {
-                array[(i + move + n * Math.abs(move)) % n] = c_array[i]; 
-            }
-        } else if (direction == 'L') {
-            for (int i = 0; i < n; i++) {
-                array[(i - move + n * Math.abs(move)) % n] = c_array[i]; 
-            }
-        }
+        int realMove = (direction == 'R') ? move : -move; // if the direction is R, move is positive, if L, move is negative
+        realMove = ((realMove % n) + n) % n; // normalize the move value
+        for (int i = 0; i < n; i++) {
+            array[(i + realMove) % n] = c_array[i]; 
+     }
         return array;
     }
 

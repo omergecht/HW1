@@ -1,30 +1,29 @@
 public class Assignment01Q05 {
     public static int findShortestPath(int[][] m, int i, int j) {
-        if (i == j) { // if the start and end nodes are the same, the shortest path is 0
-            return 0;
-        }
-        int res = findShortestPathHelper(m, i, j, new boolean[m.length]); // use recursion to find the shortest path from i to j, while keeping track of visited nodes to avoid cycles
-        return res;
-    }
-
-    public static int findShortestPathHelper(int[][] m, int i, int j, boolean[] visited) {
+        int current = i;
+        boolean[] visited = new boolean[m.length];
+        int[] distances = new int[m.length];
+        int[] queue = new int[m.length];
+        int build = 0, use = 0;
         if (i == j) {
-            return 0;
+            return 0; // if the start and end are the same, the distance is 0
         }
-        visited[i] = true;
-        int min = -1; int L = m.length;
-        for (int l = 0; l < L; l++) { // check all the nodes in the graph, if there is a path from i to l and l has not been visited, recursively find the shortest path from l to j through it
-            if (m[i][l] == 1 && !visited[l]) {
-                int pathLength = findShortestPathHelper(m, l, j, visited);
-                if (pathLength != -1) {
-                        if (min == -1 || pathLength + 1 < min) {
-                            min = pathLength + 1;
-                        }
+        queue[build++] = current;
+        while (use < build) {
+            current = queue[use++];
+            for (int next = 0; next < m.length; next++) {
+                if (m[current][next] == 1 && !visited[next]) {
+                    distances[next] = distances[current] + 1;
+                    if (next == j) {
+                        return distances[next];
                     }
+                    visited[next] = true;
+                    queue[build++] = next;
                 }
+            }
+            
         }
-        visited[i] = false;
-        return min;
+        return -1; // if we reach here, it means we didn't find a path from i to j
     }
 
     public static void main(String[] args) {
