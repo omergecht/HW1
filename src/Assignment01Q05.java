@@ -1,6 +1,9 @@
 public class Assignment01Q05 {
     public static int findShortestPath(int[][] m, int i, int j) {
-        // TODO: implement
+        if (i == j) {
+            return 0;
+        }
+        
         return -1;
     }
 
