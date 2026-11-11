@@ -3,9 +3,9 @@ import java.util.Arrays;
 public class Assignment01Q04 {
 
     public static int[] shiftArrayCyclic(int[] array, int move, char direction) {
-        int[] c_array = array.clone();
+        int[] c_array = array.clone(); // clone the array to avoid overwriting values during the shift
         int n = array.length;
-        if (direction == 'R') {
+        if (direction == 'R') { // use the clone to shift the array to the right or left by move positions
             for (int i = 0; i < n; i++) {
                 array[(i + move + n * Math.abs(move)) % n] = c_array[i]; 
             }
