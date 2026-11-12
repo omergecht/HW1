@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class Assignment01Q04 {
 
     public static int[] shiftArrayCyclic(int[] array, int move, char direction) {
-        if (direction != 'R' && direction != 'L') { // if the direction is not R or L, return the original array
+        if (direction != 'R' && direction != 'L' || array.length <= 1) { // if the direction is not R or L or the array has 1 or fewer elements, return the original array
             return array;
         }
         int[] c_array = array.clone(); // clone the array to avoid overwriting values during the shift
